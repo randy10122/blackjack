@@ -200,7 +200,12 @@ namespace blackjack
                     }
 
                     Thread.Sleep(250);
-                    Console.WriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice 
+                    Console.WriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice (fix)
+                    if (playing == false)
+                    {
+                        Console.WriteLine("THIS IS NOT MEANT TO HAPPEN. please report exactly what happened on the open issue about this <3");
+                        continue;
+                    }
                     if (Console.ReadLine() == "hit") 
                     {
                         hitorFold = true;
@@ -236,7 +241,7 @@ namespace blackjack
                                     cards.Remove(dcardName3, out dcardValue3);
                                     dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
 
-                                    if (dHandWorth >= handWorth)
+                                    if (dHandWorth >= handWorth || dHandWorth > 20)
                                     {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
@@ -251,12 +256,14 @@ namespace blackjack
                                 cards.Remove(dcardName4, out dcardValue4);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4;
                                 Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName4 + ", worth" + dcardValue4 + ".");
+                                Console.WriteLine("The dealer draws a " + dcardName4 + ", worth " + dcardValue4 + ".");
                                 Thread.Sleep(100);
-                                if (dHandWorth >= handWorth)
+                                if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    playing = false;
+                                    continue;
                                 }
                                 Thread.Sleep(100);
                                 Console.WriteLine("The dealer draws another card.");
@@ -266,12 +273,14 @@ namespace blackjack
                                 cards.Remove(dcardName5, out dcardValue5);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4 + dcardValue5;
                                 Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth" + dcardValue5 + ".");
+                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
                                 Thread.Sleep(100);
-                                if (dHandWorth >= handWorth)
+                                if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    playing = false;
+                                    continue;
                                 }
                                 Thread.Sleep(100);
                                 Console.WriteLine("The dealer draws another card.");
@@ -281,12 +290,13 @@ namespace blackjack
                                 cards.Remove(dcardName6, out dcardValue6);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4 + dcardValue5 + dcardValue6;
                                 Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth" + dcardValue5 + ".");
-                                if (dHandWorth >= handWorth)
+                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
+                                if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                     playing = false;
+                                    continue;
                                 }
 
                                 if (dHandWorth > 21 && handWorth <= 21)
@@ -335,7 +345,6 @@ namespace blackjack
                                     Console.ForegroundColor = ConsoleColor.Gray;
                                     Console.BackgroundColor = ConsoleColor.Black;
                                     playing = false;
-                                
                                     break;
                                 }
                                 else if (dHandWorth == handWorth)
