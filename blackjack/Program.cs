@@ -228,7 +228,7 @@ namespace blackjack
                         Thread.Sleep(250);
                         Console.WriteLine("You fold, with a total hand worth of " + handWorth + ".");
                         folded = true;
-                        while (folded == true)
+                        if (folded)
                         {
 
                             if (dHandWorth < 17 || handWorth == 21 && dHandWorth >= 17 || folding == true)
@@ -307,8 +307,7 @@ namespace blackjack
                                     Console.BackgroundColor = ConsoleColor.Green;
                                     Console.ForegroundColor = ConsoleColor.Black;
                                     Console.WriteLine("You win $" + amountBet * 2 + ".");
-                                    Console.ForegroundColor = ConsoleColor.Gray;
-                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ResetColor();
                                     playing = false;
                                     break;
                                 }
@@ -318,7 +317,7 @@ namespace blackjack
                                     Thread.Sleep(100);
                                     Console.BackgroundColor = ConsoleColor.Red;
                                     Console.WriteLine("You lose $" + amountBet + ".");
-                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ResetColor();
                                     playing = false;
                                     break;
                                 }
@@ -329,8 +328,7 @@ namespace blackjack
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.ForegroundColor = ConsoleColor.Black;
                                     Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
-                                    Console.ForegroundColor = ConsoleColor.Gray;
-                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ResetColor();
                                     playing = false;
                                     break;
                                 }
@@ -342,8 +340,7 @@ namespace blackjack
                                     Console.BackgroundColor = ConsoleColor.Green;
                                     Console.ForegroundColor = ConsoleColor.Black;
                                     Console.WriteLine("You win $" + amountBet * 3 + ".");
-                                    Console.ForegroundColor = ConsoleColor.Gray;
-                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ResetColor();
                                     playing = false;
                                     break;
                                 }
@@ -354,8 +351,7 @@ namespace blackjack
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.ForegroundColor = ConsoleColor.Black;
                                     Console.WriteLine("Your hand and the dealer's hand are equal, ending the game in a draw. This leaves you with $" + money);
-                                    Console.ForegroundColor = ConsoleColor.Gray;
-                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ResetColor();
                                     playing = false;
                                     break;
                                 }
@@ -378,8 +374,7 @@ namespace blackjack
                                         Console.BackgroundColor = ConsoleColor.Green;
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.WriteLine("You win $" + amountBet * 2 + ".");
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
@@ -390,7 +385,7 @@ namespace blackjack
                                         Thread.Sleep(100);
                                         Console.BackgroundColor = ConsoleColor.Red;
                                         Console.WriteLine("You lost $" + amountBet + ".");
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
@@ -403,8 +398,7 @@ namespace blackjack
                                         Console.BackgroundColor = ConsoleColor.Gray;
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
@@ -417,8 +411,7 @@ namespace blackjack
                                         Console.BackgroundColor = ConsoleColor.Green;
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.WriteLine("You won $" + amountBet * 3 + ".");
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
@@ -431,8 +424,7 @@ namespace blackjack
                                         Console.BackgroundColor = ConsoleColor.Green;
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.WriteLine("You win $" + amountBet * 2 + ".");
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
@@ -445,8 +437,7 @@ namespace blackjack
                                         Console.BackgroundColor = ConsoleColor.Gray;
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.ResetColor();
                                         playing = false;
                                         folding = false;
                                         break;
