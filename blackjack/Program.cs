@@ -152,7 +152,7 @@ namespace blackjack
                 playing = true;
 
                 int handWorth = 0;
-                while (playing == true)
+                while (playing)
                 {
                     Thread.Sleep(200);
                     Console.WriteLine("The dealer has a " + dcardName + ", worth " + dcardValue + ", and a hidden card.");
@@ -200,13 +200,12 @@ namespace blackjack
                     }
 
                     Thread.Sleep(250);
-                    Console.WriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // explained in the line, fix this!
-                    if (Console.ReadLine().ToLower() == "hit") 
+                    Console.WriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice 
+                    if (Console.ReadLine() == "hit") 
                     {
-                        playing = true;
                         hitorFold = true;
                     }
-                    if (Console.ReadLine().ToLower() == "fold") // you have to hit enter twice if you fold, fix somehow??
+                    if (Console.ReadLine() == "fold")
                     {
                         hitorFold = false;
                     }
@@ -290,6 +289,7 @@ namespace blackjack
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    playing = false;
                                     break;
                                 }
 
@@ -339,6 +339,7 @@ namespace blackjack
                                     Console.ForegroundColor = ConsoleColor.Gray;
                                     Console.BackgroundColor = ConsoleColor.Black;
                                     playing = false;
+                                
                                     break;
                                 }
                                 else if (dHandWorth == handWorth)
