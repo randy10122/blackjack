@@ -230,17 +230,16 @@ namespace blackjack
                             {
                                 Thread.Sleep(250);
                                 Console.WriteLine("The dealer draws a card."); // sometimes the dealer infinitely draws a card until the deck runs dry
-                                Random rnd4 = new Random();                    // this might be an issue that i do not know how to fix 
-                                int dcard3 = rnd4.Next(0, cards.Count);
-                                int dcardValue3 = cards.ElementAt(dcard3).Value; string dcardName3 = cards.ElementAt(dcard3).Key;
-                                cards.Remove(dcardName3, out dcardValue3);
-                                dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
+                                    Random rnd4 = new Random();                    // this might be an issue that i do not know how to fix 
+                                    int dcard3 = rnd4.Next(0, cards.Count);
+                                    int dcardValue3 = cards.ElementAt(dcard3).Value; string dcardName3 = cards.ElementAt(dcard3).Key;
+                                    cards.Remove(dcardName3, out dcardValue3);
+                                    dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
 
-                                if (dHandWorth >= handWorth)
-                                {
+                                    if (dHandWorth >= handWorth)
+                                    {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    break;  
                                 }
                                 Thread.Sleep(100);
                                 Console.WriteLine("The dealer draws a " + dcardName3 + ", worth " + dcardValue3 + ".");
@@ -258,7 +257,6 @@ namespace blackjack
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    break;
                                 }
                                 Thread.Sleep(100);
                                 Console.WriteLine("The dealer draws another card.");
@@ -274,7 +272,6 @@ namespace blackjack
                                 {
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    break;
                                 }
                                 Thread.Sleep(100);
                                 Console.WriteLine("The dealer draws another card.");
@@ -290,7 +287,6 @@ namespace blackjack
                                     Thread.Sleep(100);
                                     Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                     playing = false;
-                                    break;
                                 }
 
                                 if (dHandWorth > 21 && handWorth <= 21)
