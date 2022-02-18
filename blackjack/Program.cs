@@ -7,6 +7,20 @@ namespace blackjack
 {
     class Program
     {
+        static void DelayedWriteLine(string message)
+        {
+            Thread.Sleep(100);
+            Console.WriteLine(message);
+        }
+
+        static void WriteColoredLine(string message, ConsoleColor background, ConsoleColor foreground)
+        {
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Black;
+            DelayedWriteLine(message);
+            Console.ResetColor();
+        }
+
         static void Main(string[] args)
         {
             Dictionary<string, int> cards = new Dictionary<string, int>(); // card dictionary works
@@ -94,21 +108,18 @@ namespace blackjack
                     cards.Add("Ace of Diamonds", 1); cards.Add("Two of Diamonds", 2); cards.Add("Three of Diamonds", 3); cards.Add("Four of Diamonds", 4); cards.Add("Five of Diamonds", 5); cards.Add("Six of Diamonds", 6); cards.Add("Seven of Diamonds", 7); cards.Add("Eight of Diamonds", 8); cards.Add("Nine of Diamonds", 9); cards.Add("Ten of Diamonds", 10); cards.Add("Jack of Diamonds", 10); cards.Add("Queen of Diamonds", 10); cards.Add("King of Diamonds", 10);
                     cards.Add("Ace of Hearts", 1); cards.Add("Two of Hearts", 2); cards.Add("Three of Hearts", 3); cards.Add("Four of Hearts", 4); cards.Add("Five of Hearts", 5); cards.Add("Six of Hearts", 6); cards.Add("Seven of Hearts", 7); cards.Add("Eight of Hearts", 8); cards.Add("Nine of Hearts", 9); cards.Add("Ten of Hearts", 10); cards.Add("Jack of Hearts", 10); cards.Add("Queen of Hearts", 10); cards.Add("King of Hearts", 10);
                 }
-                Thread.Sleep(250);
-                Console.WriteLine("You have $" + money + ". Please input a bet.");
+                DelayedWriteLine("You have $" + money + ". Please input a bet.");
                 var betInput = Console.ReadLine();
                 if (betInput == "THAW")
                 {
-                    Thread.Sleep(300);
-                    Console.WriteLine("Debug mode enabled.");
+                    DelayedWriteLine("Debug mode enabled.");
                     debugmode = true;
                     Thread.Sleep(200);
                     continue;
                 }
                 if (betInput == "THAW" && debugmode == true)
                 {
-                    Thread.Sleep(300);
-                    Console.WriteLine("Debug mode disabled.");
+                    DelayedWriteLine("Debug mode disabled.");
                     debugmode = false;
                     Thread.Sleep(200);
                     continue;
@@ -116,24 +127,20 @@ namespace blackjack
                 bool betisNumber = int.TryParse(betInput, out _); // but now, if you input a number, it doesn't work 
                 if (betisNumber == false)
                 {
-                    Thread.Sleep(100);
-                    Console.WriteLine("Not a valid number. Please input a reasonable bet.");
+                    DelayedWriteLine("Not a valid number. Please input a reasonable bet.");
                     continue;
                 }
                 int amountBet = (int)Int64.Parse(betInput); // if you enter a non-number, this works
-                Thread.Sleep(100);
-                Console.WriteLine("You bet $" + amountBet + "."); 
+                DelayedWriteLine("You bet $" + amountBet + ".");
 
                 if (amountBet > money)
                 {
-                    Thread.Sleep(200);
-                    Console.WriteLine("You do not have that much money. Please input a reasonable bet.");
+                    DelayedWriteLine("You do not have that much money. Please input a reasonable bet.");
                     continue;
                 }
                 if (amountBet <= 0)
                 {
-                    Thread.Sleep(100);
-                    Console.WriteLine("You can't bet less than one dollar. Please input a reasonable bet.");
+                    DelayedWriteLine("You can't bet less than one dollar. Please input a reasonable bet.");
                     continue;
                 }
                 money -= amountBet;
@@ -154,11 +161,10 @@ namespace blackjack
                 int handWorth = 0;
                 while (playing)
                 {
-                    Thread.Sleep(200);
-                    Console.WriteLine("The dealer has a " + dcardName + ", worth " + dcardValue + ", and a hidden card.");
+                    DelayedWriteLine("The dealer has a " + dcardName + ", worth " + dcardValue + ", and a hidden card.");
                     if (debugmode == true)
                     {
-                        Console.WriteLine("[DEBUG: hidden = " + dcardName2 + " worth " + dcardValue2 + ", hand worth = " + dHandWorth + "]" ); // DEBUG LINE
+                        Console.WriteLine("[DEBUG: hidden = " + dcardName2 + " worth " + dcardValue2 + ", hand worth = " + dHandWorth + "]"); // DEBUG LINE
                     }
                     Random rnd = new Random();
                     int card = rnd.Next(0, cards.Count);
@@ -178,35 +184,29 @@ namespace blackjack
                             cardValue = 1;
                         }
                     }
-                    Thread.Sleep(250);
-                    Console.WriteLine("You drew a " + cardName + " worth " + cardValue);
+                    DelayedWriteLine("You drew a " + cardName + " worth " + cardValue);
                     hitorFold = false;
                     handWorth += cardValue;
-                    Thread.Sleep(250);
-                    Console.WriteLine("Your hand is now worth " + handWorth);
+                    DelayedWriteLine("Your hand is now worth " + handWorth);
 
                     if (handWorth > 21)
                     {
-                        Thread.Sleep(250);
-                        Console.WriteLine("Your hand worth is " + handWorth + ". You lose the money you bet, leaving you with $" + money + ".");
+                        DelayedWriteLine("Your hand worth is " + handWorth + ". You lose the money you bet, leaving you with $" + money + ".");
                         Console.BackgroundColor = ConsoleColor.Red;
-                        Thread.Sleep(250);
-                        Console.WriteLine("You lose $" + amountBet + ".");
+                        DelayedWriteLine("You lose $" + amountBet + ".");
                         Console.BackgroundColor = ConsoleColor.Black;
-                        Thread.Sleep(250);
-                        Console.WriteLine("The dealer had a " + dcardName + ", worth " + dcardValue + ", and a " + dcardName2 + ", worth " + dcardValue2 + ", giving the dealer a total of " + dHandWorth + ".");
+                        DelayedWriteLine("The dealer had a " + dcardName + ", worth " + dcardValue + ", and a " + dcardName2 + ", worth " + dcardValue2 + ", giving the dealer a total of " + dHandWorth + ".");
                         playing = false;
                         break;
                     }
 
-                    Thread.Sleep(250);
-                    Console.WriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice (fix)
+                    DelayedWriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice (fix)
                     if (playing == false)
                     {
                         Console.WriteLine("THIS IS NOT MEANT TO HAPPEN. please report exactly what happened on the open issue about this <3");
                         continue;
                     }
-                    if (Console.ReadLine() == "hit") 
+                    if (Console.ReadLine() == "hit")
                     {
                         hitorFold = true;
                     }
@@ -217,84 +217,69 @@ namespace blackjack
 
                     if (hitorFold == true)
                     {
-                        Thread.Sleep(100);
-                        Console.WriteLine("You are given a card.");
-                        Thread.Sleep(100);
-                        Console.WriteLine("There are " + cardamount + " cards left in the deck.");
+                        DelayedWriteLine("You are given a card.");
+                        DelayedWriteLine("There are " + cardamount + " cards left in the deck.");
                         continue;
                     }
                     if (hitorFold == false)
                     {
-                        Thread.Sleep(250);
-                        Console.WriteLine("You fold, with a total hand worth of " + handWorth + ".");
+                        DelayedWriteLine("You fold, with a total hand worth of " + handWorth + ".");
                         folded = true;
                         if (folded)
                         {
 
                             if (dHandWorth < 17 || handWorth == 21 && dHandWorth >= 17 || folding == true)
                             {
-                                Thread.Sleep(250);
-                                Console.WriteLine("The dealer draws a card."); // sometimes the dealer infinitely draws a card until the deck runs dry
-                                    Random rnd4 = new Random();                    // this might be an issue that i do not know how to fix 
-                                    int dcard3 = rnd4.Next(0, cards.Count);
-                                    int dcardValue3 = cards.ElementAt(dcard3).Value; string dcardName3 = cards.ElementAt(dcard3).Key;
-                                    cards.Remove(dcardName3, out dcardValue3);
-                                    dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
+                                DelayedWriteLine("The dealer draws a card."); // sometimes the dealer infinitely draws a card until the deck runs dry
+                                Random rnd4 = new Random();                    // this might be an issue that i do not know how to fix 
+                                int dcard3 = rnd4.Next(0, cards.Count);
+                                int dcardValue3 = cards.ElementAt(dcard3).Value; string dcardName3 = cards.ElementAt(dcard3).Key;
+                                cards.Remove(dcardName3, out dcardValue3);
+                                dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
 
-                                    if (dHandWorth >= handWorth || dHandWorth > 20)
-                                    {
-                                    Thread.Sleep(100);
-                                    Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                if (dHandWorth >= handWorth || dHandWorth > 20)
+                                {
+                                    DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                 }
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName3 + ", worth " + dcardValue3 + ".");
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws another card."); 
-                                Random rnd5 = new Random();                    
+                                DelayedWriteLine("The dealer draws a " + dcardName3 + ", worth " + dcardValue3 + ".");
+                                DelayedWriteLine("The dealer draws another card.");
+                                Random rnd5 = new Random();
                                 int dcard4 = rnd5.Next(0, cards.Count);
                                 int dcardValue4 = cards.ElementAt(dcard4).Value; string dcardName4 = cards.ElementAt(dcard4).Key;
                                 cards.Remove(dcardName4, out dcardValue4);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4;
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName4 + ", worth " + dcardValue4 + ".");
+                                DelayedWriteLine("The dealer draws a " + dcardName4 + ", worth " + dcardValue4 + ".");
                                 Thread.Sleep(100);
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
-                                    Thread.Sleep(100);
-                                    Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                     playing = false;
                                     continue;
                                 }
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws another card.");
+                                DelayedWriteLine("The dealer draws another card.");
                                 Random rnd6 = new Random();
                                 int dcard5 = rnd6.Next(0, cards.Count);
                                 int dcardValue5 = cards.ElementAt(dcard5).Value; string dcardName5 = cards.ElementAt(dcard5).Key;
                                 cards.Remove(dcardName5, out dcardValue5);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4 + dcardValue5;
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
+                                DelayedWriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
                                 Thread.Sleep(100);
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
-                                    Thread.Sleep(100);
-                                    Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                     playing = false;
                                     continue;
                                 }
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws another card.");
+                                DelayedWriteLine("The dealer draws another card.");
                                 Random rnd7 = new Random();
                                 int dcard6 = rnd7.Next(0, cards.Count);
                                 int dcardValue6 = cards.ElementAt(dcard6).Value; string dcardName6 = cards.ElementAt(dcard6).Key;
                                 cards.Remove(dcardName6, out dcardValue6);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4 + dcardValue5 + dcardValue6;
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
+                                DelayedWriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
-                                    Thread.Sleep(100);
-                                    Console.WriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
+                                    DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
                                     playing = false;
                                     continue;
                                 }
@@ -303,10 +288,7 @@ namespace blackjack
                                 {
                                     money += amountBet * 2;
                                     Console.WriteLine("The dealer's hand is worth " + dHandWorth + ", while yours is worth " + handWorth + ".");
-                                    Thread.Sleep(100);
-                                    Console.BackgroundColor = ConsoleColor.Green;
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.WriteLine("You win $" + amountBet * 2 + ".");
+                                    WriteColoredLine("You win $" + amountBet * 2 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                     Console.ResetColor();
                                     playing = false;
                                     break;
@@ -324,10 +306,7 @@ namespace blackjack
                                 else if (dHandWorth == 21 && handWorth == 21)
                                 {
                                     Console.WriteLine("The dealer and you both scored a blackjack. This concludes with a draw. You keep your money, leaving you with $" + money + ".");
-                                    Thread.Sleep(100);
-                                    Console.BackgroundColor = ConsoleColor.Gray;
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
+                                    WriteColoredLine("You lose nothing. You get your $" + amountBet + " back.", ConsoleColor.Gray, ConsoleColor.Black);
                                     Console.ResetColor();
                                     playing = false;
                                     break;
@@ -336,10 +315,7 @@ namespace blackjack
                                 {
                                     money += amountBet * 3;
                                     Console.WriteLine("You scored a blackjack. You triple your bet amount, leaving you with $" + money + ".");
-                                    Thread.Sleep(100);
-                                    Console.BackgroundColor = ConsoleColor.Green;
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.WriteLine("You win $" + amountBet * 3 + ".");
+                                    WriteColoredLine("You win $" + amountBet * 3 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                     Console.ResetColor();
                                     playing = false;
                                     break;
@@ -347,10 +323,7 @@ namespace blackjack
                                 else if (dHandWorth == handWorth)
                                 {
                                     money += amountBet;
-                                    Thread.Sleep(100);
-                                    Console.BackgroundColor = ConsoleColor.Gray;
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.WriteLine("Your hand and the dealer's hand are equal, ending the game in a draw. This leaves you with $" + money);
+                                    WriteColoredLine("Your hand and the dealer's hand are equal, ending the game in a draw. This leaves you with $" + money, ConsoleColor.Gray, ConsoleColor.Black);
                                     Console.ResetColor();
                                     playing = false;
                                     break;
@@ -359,8 +332,7 @@ namespace blackjack
                             }
                             else if (dHandWorth >= 17)
                             {
-                                Thread.Sleep(100);
-                                Console.WriteLine("The dealer folds. His hand is worth " + dHandWorth + ".");
+                                DelayedWriteLine("The dealer folds. His hand is worth " + dHandWorth + ".");
                                 playing = false;
                                 folding = true;
                                 while (folding == true)
@@ -368,12 +340,8 @@ namespace blackjack
                                     if (dHandWorth > 21 && handWorth <= 21)
                                     {
                                         money += amountBet * 2;
-                                        Thread.Sleep(100);
-                                        Console.WriteLine("The dealer's hand is worth " + dHandWorth + ", while yours is worth " + handWorth + ". You double your bet amount, leaving you with $" + money + ".");
-                                        Thread.Sleep(100);
-                                        Console.BackgroundColor = ConsoleColor.Green;
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.WriteLine("You win $" + amountBet * 2 + ".");
+                                        DelayedWriteLine("The dealer's hand is worth " + dHandWorth + ", while yours is worth " + handWorth + ". You double your bet amount, leaving you with $" + money + ".");
+                                        WriteColoredLine("You win $" + amountBet * 2 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                         Console.ResetColor();
                                         playing = false;
                                         folding = false;
@@ -394,10 +362,7 @@ namespace blackjack
                                     {
                                         money += amountBet;
                                         Console.WriteLine("The dealer and you both scored a blackjack. This concludes with a draw. You keep your money, leaving you with $" + money + ".");
-                                        Thread.Sleep(100);
-                                        Console.BackgroundColor = ConsoleColor.Gray;
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
+                                        WriteColoredLine("You lose nothing. You get your $" + amountBet + " back.", ConsoleColor.Gray, ConsoleColor.Black);
                                         Console.ResetColor();
                                         playing = false;
                                         folding = false;
@@ -407,10 +372,7 @@ namespace blackjack
                                     {
                                         money += amountBet * 3;
                                         Console.WriteLine("You scored a blackjack. You triple your bet amount, leaving you with $" + money + ".");
-                                        Thread.Sleep(100);
-                                        Console.BackgroundColor = ConsoleColor.Green;
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.WriteLine("You won $" + amountBet * 3 + ".");
+                                        WriteColoredLine("You won $" + amountBet * 3 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                         Console.ResetColor();
                                         playing = false;
                                         folding = false;
@@ -420,10 +382,7 @@ namespace blackjack
                                     {
                                         money += amountBet * 2;
                                         Console.WriteLine("Your hand is worth more than the dealer's hand. You double your bet amount, leaving you with $" + money + ".");
-                                        Thread.Sleep(100);
-                                        Console.BackgroundColor = ConsoleColor.Green;
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.WriteLine("You win $" + amountBet * 2 + ".");
+                                        WriteColoredLine("You win $" + amountBet * 2 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                         Console.ResetColor();
                                         playing = false;
                                         folding = false;
@@ -433,10 +392,7 @@ namespace blackjack
                                     {
                                         money += amountBet;
                                         Console.WriteLine("Your hand and the dealer's hand are equal, ending the game in a draw. This leaves you with $" + money);
-                                        Thread.Sleep(100);
-                                        Console.BackgroundColor = ConsoleColor.Gray;
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.WriteLine("You lose nothing. You get your $" + amountBet + " back.");
+                                        WriteColoredLine("You lose nothing. You get your $" + amountBet + " back.", ConsoleColor.Gray, ConsoleColor.Black);
                                         Console.ResetColor();
                                         playing = false;
                                         folding = false;
@@ -448,10 +404,8 @@ namespace blackjack
 
                             else
                             {
-                                Thread.Sleep(100);
-                                Console.WriteLine("Unrecognised word. Please input HIT or FOLD.");
+                                DelayedWriteLine("Unrecognised word. Please input HIT or FOLD.");
                                 continue;
-                            }
                             }
                         }
                     }
@@ -459,3 +413,4 @@ namespace blackjack
             }
         }
     }
+}
