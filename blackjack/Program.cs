@@ -110,7 +110,7 @@ namespace blackjack
                 }
                 DelayedWriteLine("You have $" + money + ". Please input a bet.");
                 var betInput = Console.ReadLine();
-                if (betInput == "THAW")
+                if (betInput == "THAW") // debug shit is like barely anything rn maybe add more thing to it lader
                 {
                     DelayedWriteLine("Debug mode enabled.");
                     debugmode = true;
@@ -200,7 +200,7 @@ namespace blackjack
                         break;
                     }
 
-                    DelayedWriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice (fix)
+                    DelayedWriteLine("Would you like to HIT or FOLD? If anything other than hit or fold is inputted, it will be counted as a fold."); // you have to hit enter twice (fix somehow?!?!?)
                     if (playing == false)
                     {
                         Console.WriteLine("THIS IS NOT MEANT TO HAPPEN. please report exactly what happened on the open issue about this <3");
@@ -404,7 +404,7 @@ namespace blackjack
 
                             else
                             {
-                                DelayedWriteLine("Unrecognised word. Please input HIT or FOLD.");
+                                DelayedWriteLine("Unrecognised word. Please input HIT or FOLD."); // this line doesn't work at all - see line 203
                                 continue;
                             }
                         }
