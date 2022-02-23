@@ -144,7 +144,7 @@ namespace blackjack
                     continue;
                 }
                 money -= amountBet;
-
+                
                 Random rnd2 = new Random();
                 int dcard = rnd2.Next(0, cards.Count);
                 int dcardValue = cards.ElementAt(dcard).Value; string dcardName = cards.ElementAt(dcard).Key;
@@ -254,7 +254,6 @@ namespace blackjack
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    playing = false;
                                     continue;
                                 }
                                 DelayedWriteLine("The dealer draws another card.");
@@ -268,7 +267,6 @@ namespace blackjack
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    playing = false;
                                     continue;
                                 }
                                 DelayedWriteLine("The dealer draws another card.");
@@ -281,7 +279,6 @@ namespace blackjack
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
-                                    playing = false;
                                     continue;
                                 }
 
@@ -291,7 +288,6 @@ namespace blackjack
                                     Console.WriteLine("The dealer's hand is worth " + dHandWorth + ", while yours is worth " + handWorth + ".");
                                     WriteColoredLine("You win $" + amountBet * 2 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                     Console.ResetColor();
-                                    playing = false;
                                     break;
                                 }
                                 else if (dHandWorth == 21 && handWorth != 21)
@@ -301,7 +297,6 @@ namespace blackjack
                                     Console.BackgroundColor = ConsoleColor.Red;
                                     Console.WriteLine("You lose $" + amountBet + ".");
                                     Console.ResetColor();
-                                    playing = false;
                                     break;
                                 }
                                 else if (dHandWorth == 21 && handWorth == 21)
@@ -309,7 +304,6 @@ namespace blackjack
                                     Console.WriteLine("The dealer and you both scored a blackjack. This concludes with a draw. You keep your money, leaving you with $" + money + ".");
                                     WriteColoredLine("You lose nothing. You get your $" + amountBet + " back.", ConsoleColor.Gray, ConsoleColor.Black);
                                     Console.ResetColor();
-                                    playing = false;
                                     break;
                                 }
                                 else if (dHandWorth != 21 && handWorth == 21)
@@ -318,7 +312,6 @@ namespace blackjack
                                     Console.WriteLine("You scored a blackjack. You triple your bet amount, leaving you with $" + money + ".");
                                     WriteColoredLine("You win $" + amountBet * 3 + ".", ConsoleColor.Green, ConsoleColor.Black);
                                     Console.ResetColor();
-                                    playing = false;
                                     break;
                                 }
                                 else if (dHandWorth == handWorth)
@@ -326,7 +319,6 @@ namespace blackjack
                                     money += amountBet;
                                     WriteColoredLine("Your hand and the dealer's hand are equal, ending the game in a draw. This leaves you with $" + money, ConsoleColor.Gray, ConsoleColor.Black);
                                     Console.ResetColor();
-                                    playing = false;
                                     break;
                                 }
 
