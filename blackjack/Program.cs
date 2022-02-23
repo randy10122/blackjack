@@ -236,7 +236,8 @@ namespace blackjack
                                 int dcardValue3 = cards.ElementAt(dcard3).Value; string dcardName3 = cards.ElementAt(dcard3).Key;
                                 cards.Remove(dcardName3, out dcardValue3);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3; // ok so the thing is that this causes that
-
+                                // fixed above like this 
+                                // ugly solution but i cant be fucked to think of anything better
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
@@ -276,7 +277,7 @@ namespace blackjack
                                 int dcardValue6 = cards.ElementAt(dcard6).Value; string dcardName6 = cards.ElementAt(dcard6).Key;
                                 cards.Remove(dcardName6, out dcardValue6);
                                 dHandWorth = dcardValue + dcardValue2 + dcardValue3 + dcardValue4 + dcardValue5 + dcardValue6;
-                                DelayedWriteLine("The dealer draws a " + dcardName5 + ", worth " + dcardValue5 + ".");
+                                DelayedWriteLine("The dealer draws a " + dcardName6 + ", worth " + dcardValue6 + ".");
                                 if (dHandWorth >= handWorth || dHandWorth > 20)
                                 {
                                     DelayedWriteLine("The dealer stops drawing. His hand is worth " + dHandWorth + ".");
